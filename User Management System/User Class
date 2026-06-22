@@ -1,0 +1,52 @@
+public class User {
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    private String role; // Teacher or Learner
+    private double rating;
+
+    public User(int id, String name, String email, String password, String role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.rating = 0.0;
+    }
+
+    // Getters
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    // Setters
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id +
+                "\nName: " + name +
+                "\nEmail: " + email +
+                "\nRole: " + role +
+                "\nRating: " + rating;
+    }
+}
