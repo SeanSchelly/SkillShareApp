@@ -85,7 +85,7 @@ public class dbconnection {
         }
         return list;
     }
-    // [Integration] Added saveUser / loadUsers for User persistence via database
+    // Added saveUser / loadUsers for saving User via database
     public static void saveUser(User user) {
         String query = "INSERT INTO users (id, name, email, password, role, rating) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
