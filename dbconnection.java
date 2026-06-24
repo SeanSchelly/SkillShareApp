@@ -85,4 +85,41 @@ public class dbconnection {
         }
         return list;
     }
+    // [Integration] Added saveUser / loadUsers for User persistence via database
+    public static void saveUser(User user) {
+        String query = "INSERT INTO users (id, name, email, password, role, rating) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, user.getId());
+            ps.setString(2, user.getName());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, "");
+            ps.setString(5, user.getRole());
+            ps.setDouble(6, user.getRating());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Database Insert Error (User): " + e.getMessage());
+        }
+    }
+
+    public static ArrayList<User> loadUsers() {
+        ArrayList<User> list = new ArrayList<>();
+        String query = "SELECT * FROM users";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        "",
+                        rs.getString("role")
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.println("Database Select Error (User): " + e.getMessage());
+        }
+        return list;
+    }
 }

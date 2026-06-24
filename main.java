@@ -6,6 +6,8 @@ public class main {
         Scanner scanner = new Scanner(System.in);
         requesthandlersys requestSystem = new requesthandlersys();
         reviewservicesys reviewSystem = new reviewservicesys();
+        // [Integration] Added UserManager for User Management System integration
+        UserManager userManager = new UserManager();
 
         file.initDatabase();
 
@@ -22,6 +24,16 @@ public class main {
             System.err.println("Could not load initial text data: " + e.getMessage());
         }
 
+        // [Integration] Load users from database on startup for cohesion
+        try {
+            ArrayList<User> dbUsers = dbconnection.loadUsers();
+            for (User u : dbUsers) {
+                userManager.addUser(u);
+            }
+        } catch (Exception e) {
+            // DB unavailable at startup is non-fatal
+        }
+
         while (true) {
             System.out.println("\n SKILL SHARING PLATFORM SYSTEM ");
             System.out.println("1. Send a Skill Request");
@@ -35,7 +47,9 @@ public class main {
             System.out.println("9. Restore Data from Serialization Backup");
             System.out.println("10. Save Data to Database");
             System.out.println("11. Load Data from Database");
-            System.out.println("12. Exit");
+            System.out.println("12. User Management Dashboard");
+            System.out.println("13. Run System Dashboard");
+            System.out.println("14. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -126,11 +140,17 @@ public class main {
                 for (reviews r : reviewSystem.getrev()) {
                     dbconnection.saveReview(r);
                 }
+                // [Integration] Also persist users to database
+                for (User u : userManager.getUsers()) {
+                    dbconnection.saveUser(u);
+                }
                 System.out.println("JDBC pipeline transaction commit processing finished.");
 
             } else if (choice == 11) {
                 ArrayList<skrequest> dbReqs = dbconnection.loadRequests();
                 ArrayList<reviews> dbRevs = dbconnection.loadReviews();
+                // [Integration] Also load users from database
+                ArrayList<User> dbUsers = dbconnection.loadUsers();
 
                 for (skrequest r : dbReqs) {
                     requestSystem.sendrequest(r);
@@ -138,9 +158,74 @@ public class main {
                 for (reviews r : dbRevs) {
                     reviewSystem.Addrev(r);
                 }
+                for (User u : dbUsers) {
+                    userManager.addUser(u);
+                }
                 System.out.println("Active instance updated with query results from database server.");
 
             } else if (choice == 12) {
+                // [Integration] User Management Dashboard — sub-menu for User/UserManager integration
+                while (true) {
+                    System.out.println("\n===== USER MANAGEMENT DASHBOARD =====");
+                    System.out.println("1. Add User");
+                    System.out.println("2. Find User by ID");
+                    System.out.println("3. Display All Users");
+                    System.out.println("4. Delete User");
+                    System.out.println("5. Back to Main Menu");
+                    System.out.print("Choose: ");
+                    int umChoice = scanner.nextInt();
+                    scanner.nextLine();
+                    if (umChoice == 1) {
+                        System.out.print("Enter ID: ");
+                        int id = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.print("Enter Name: ");
+                        String name = scanner.nextLine();
+                        System.out.print("Enter Email: ");
+                        String email = scanner.nextLine();
+                        System.out.print("Enter Password: ");
+                        String password = scanner.nextLine();
+                        System.out.print("Enter Role (Teacher/Learner): ");
+                        String role = scanner.nextLine();
+                        User u = new User(id, name, email, password, role);
+                        userManager.addUser(u);
+                    } else if (umChoice == 2) {
+                        System.out.print("Enter User ID: ");
+                        int id = scanner.nextInt();
+                        scanner.nextLine();
+                        User found = userManager.findUser(id);
+                        if (found != null) {
+                            System.out.println(found);
+                        } else {
+                            System.out.println("User not found.");
+                        }
+                    } else if (umChoice == 3) {
+                        userManager.displayUsers();
+                    } else if (umChoice == 4) {
+                        System.out.print("Enter User ID to delete: ");
+                        int id = scanner.nextInt();
+                        scanner.nextLine();
+                        if (userManager.deleteUser(id)) {
+                            System.out.println("User deleted.");
+                        } else {
+                            System.out.println("User not found.");
+                        }
+                    } else if (umChoice == 5) {
+                        break;
+                    } else {
+                        System.out.println("Invalid choice.");
+                    }
+                }
+
+            } else if (choice == 13) {
+                // [Integration] Close shared scanner, run self-contained System Dashboard, then recreate scanner
+                System.out.println("\n===== SKILLSHARE SYSTEM DASHBOARD =====");
+                scanner.close();
+                SystemServiceCore.runDashboard();
+                scanner = new Scanner(System.in);
+                System.out.println("\nReturned to main menu.");
+
+            } else if (choice == 14) {
                 System.out.println("Exiting System execution context.");
                 break;
             } else {
