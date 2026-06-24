@@ -1,5 +1,3 @@
-// [Integration] Removed package declaration to put all classes in default package, accessible from Main.java
-
 import java.io.IOException;
 import java.io.PrintWriter;
 

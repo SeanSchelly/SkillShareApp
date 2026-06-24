@@ -6,7 +6,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         requesthandlersys requestSystem = new requesthandlersys();
         reviewservicesys reviewSystem = new reviewservicesys();
-        // [Integration] Added UserManager for User Management System integration
+        // Added UserManager for User Management System integration
         UserManager userManager = new UserManager();
 
         file.initDatabase();
@@ -24,14 +24,14 @@ public class Main {
             System.err.println("Could not load initial text data: " + e.getMessage());
         }
 
-        // [Integration] Load users from database on startup for cohesion
+        // Loads users from database on startup for improved code cohesiveness
         try {
             ArrayList<User> dbUsers = dbconnection.loadUsers();
             for (User u : dbUsers) {
                 userManager.addUser(u);
             }
         } catch (Exception e) {
-            // DB unavailable at startup is non-fatal
+            System.out.println("Err: Database not found.");
         }
 
         while (true) {
@@ -140,7 +140,7 @@ public class Main {
                 for (reviews r : reviewSystem.getrev()) {
                     dbconnection.saveReview(r);
                 }
-                // [Integration] Also persist users to database
+                //save users to database
                 for (User u : userManager.getUsers()) {
                     dbconnection.saveUser(u);
                 }
@@ -149,7 +149,7 @@ public class Main {
             } else if (choice == 11) {
                 ArrayList<skrequest> dbReqs = dbconnection.loadRequests();
                 ArrayList<reviews> dbRevs = dbconnection.loadReviews();
-                // [Integration] Also load users from database
+                // load users from database
                 ArrayList<User> dbUsers = dbconnection.loadUsers();
 
                 for (skrequest r : dbReqs) {
@@ -164,7 +164,7 @@ public class Main {
                 System.out.println("Active instance updated with query results from database server.");
 
             } else if (choice == 12) {
-                // [Integration] User Management Dashboard — sub-menu for User/UserManager integration
+                //User Management Dashboard — mini-menu for User/UserManager integration
                 while (true) {
                     System.out.println("\n===== USER MANAGEMENT DASHBOARD =====");
                     System.out.println("1. Add User");
@@ -218,7 +218,7 @@ public class Main {
                 }
 
             } else if (choice == 13) {
-                // [Integration] Close shared scanner, run self-contained System Dashboard, then recreate scanner
+                //Close shared scanner, run mini menu System Dashboard, then recreate scanner
                 System.out.println("\n===== SKILLSHARE SYSTEM DASHBOARD =====");
                 scanner.close();
                 SystemServiceCore.runDashboard();

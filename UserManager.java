@@ -1,4 +1,4 @@
-// [Integration] Moved from User Management System/ to root, accessible from Main.java
+// accessible from Main.java
 import java.util.ArrayList;
 
 public class UserManager {

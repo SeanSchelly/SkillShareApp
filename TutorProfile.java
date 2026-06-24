@@ -1,5 +1,3 @@
-// [Integration] Removed package declaration to put all classes in default package, accessible from Main.java
-
 public class TutorProfile extends Profile{
     final private boolean hasLicense = true;
     public TutorProfile(String email, String bio, String experience, double rating){

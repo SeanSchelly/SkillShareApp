@@ -1,9 +1,7 @@
-// [Integration] Removed package declaration to put all classes in default package, accessible from Main.java
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class SystemServiceCore{
-    // [Integration] Converted main() to runDashboard() so Main.java calls it as a subsystem
+    //Converted main() to runDashboard() so Main.java calls it as a subsystem
     public static void runDashboard() {
         //universal scanner
         Scanner input = new Scanner(System.in);
@@ -127,7 +125,7 @@ public class SystemServiceCore{
                 System.out.println("------------------------------------------------------------");
                 SystemServices.searchFacility(skillArray);
         }
-        // [Integration] Close scanner to avoid conflict when called from Main.java
+        //Close scanner to avoid conflict when called from Main.java
         input.close();
     }
 }

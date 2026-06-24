@@ -1,4 +1,4 @@
-// [Integration] Renamed class from Main to UMSystemDemo and main() to runDemo() to avoid conflict with Main.java and allow Main.java to call it
+// Renamed class from Main to UMSystemDemo and main() to runDemo() to avoid conflict with Main.java and allow Main.java to call it
 public class UMSystemDemo {
     public static void runDemo() {
 
