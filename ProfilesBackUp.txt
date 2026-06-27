@@ -1,0 +1,5 @@
+EMAIL: ali@gmail.com | BIO: Computer science student interested in Java. | EXPERIENCE: beginner
+EMAIL: sara@yahoo.com | BIO: Professional web developer with 5 years of experience. | EXPERIENCE: expert
+EMAIL: john.doe@company.com | BIO: Data Analyst familiar with Python and SQL. | EXPERIENCE: intermediate
+EMAIL: emily.smith@edu.com | BIO: Language tutor looking to learn basic coding. | EXPERIENCE: beginner
+EMAIL: mike.tech@gmail.com | BIO: System architect specializing in backend logic. | EXPERIENCE: expert

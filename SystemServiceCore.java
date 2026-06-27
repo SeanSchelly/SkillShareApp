@@ -1,6 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-public class SystemServiceCore{
+public class SystemServiceCore {
     //Converted main() to runDashboard() so Main.java calls it as a subsystem
     public static void runDashboard() {
         //universal scanner
@@ -34,7 +34,6 @@ public class SystemServiceCore{
         //usr profile
         Person newUsrData = new Person("", "");
         Profile newUsrProfile = new Profile("", "", "",0.0);
-
         System.out.println("SkillShare App Dashboard");
         System.out.println("Hello, user. Would you like to create an account or view in-demand skills? (1/2) -> (yes/no)");
         try {
@@ -76,7 +75,7 @@ public class SystemServiceCore{
                     System.out.println("------------------------------------------------------------");
                     System.out.println(newUsrProfile.getEmail().toUpperCase()+"'s Dashboard.");
                     System.out.println("------------------------------------------------------------");
-                    System.out.println("FEED PAGE");
+                    System.out.println("(mini)FEED PAGE");
                     System.out.println("Available skills:");
                     for(int i=0; i<skillArray.length; i++) {
                         System.out.println(skillArray[i]+"\n");
@@ -99,7 +98,7 @@ public class SystemServiceCore{
                     }
                     System.out.println(" ");
                     System.out.println("Feed (refreshed)");
-                    System.out.println(newUsrProfile.getEmail().toUpperCase()+"'s Dashboard.");
+                    System.out.println(newUsrProfile.getEmail()+"'s Dashboard.");
                     System.out.println("------------------------------------------------------------");
                     System.out.println("FEED PAGE");
                     System.out.println("Available skills:");
@@ -113,10 +112,11 @@ public class SystemServiceCore{
                     }
 
                     //
-                    System.out.println("[Backing up all user details. This will only be a second...]");
+                    System.out.println("[Backing up other user details. This will only be a second...]");
                     WriterBackUpService newBackUp = new WriterBackUpService();
                     //Extra backup to simulate abstraction and basic file io/exception handling
                     newBackUp.writerBackUp(profileArray, newUsrProfile, newUsrData);
+                    System.out.println(newUsrProfile.toString());
                 }
                 break;
 
@@ -125,7 +125,5 @@ public class SystemServiceCore{
                 System.out.println("------------------------------------------------------------");
                 SystemServices.searchFacility(skillArray);
         }
-        //Close scanner to avoid conflict when called from Main.java
-        input.close();
     }
 }

@@ -8,7 +8,6 @@ public class Main {
         reviewservicesys reviewSystem = new reviewservicesys();
         // Added UserManager for User Management System integration
         UserManager userManager = new UserManager();
-
         file.initDatabase();
 
         try {
@@ -115,7 +114,7 @@ public class Main {
             } else if (choice == 7) {
                 file.saveRequests(new ArrayList<>(requestSystem.getrequests()));
                 file.saveReviews(new ArrayList<>(reviewSystem.getrev()));
-                System.out.println("Data flushed to plain text logs successfully.");
+                System.out.println("Data saved to plain text backups successfully.");
 
             } else if (choice == 8) {
                 backuprecord.backupRequests(new ArrayList<>(requestSystem.getrequests()));
@@ -131,7 +130,7 @@ public class Main {
                 for (reviews r : restoredRevs) {
                     reviewSystem.Addrev(r);
                 }
-                System.out.println("Binary arrays re-injected into active handler systems.");
+                System.out.println("Binary arrays 'unfrozen'.");
 
             } else if (choice == 10) {
                 for (skrequest r : requestSystem.getrequests()) {
@@ -144,7 +143,7 @@ public class Main {
                 for (User u : userManager.getUsers()) {
                     dbconnection.saveUser(u);
                 }
-                System.out.println("JDBC pipeline transaction commit processing finished.");
+                System.out.println("Data has been migrated to DB successfully.");
 
             } else if (choice == 11) {
                 ArrayList<skrequest> dbReqs = dbconnection.loadRequests();
@@ -218,18 +217,15 @@ public class Main {
                 }
 
             } else if (choice == 13) {
-                //Close shared scanner, run mini menu System Dashboard, then recreate scanner
-                System.out.println("\n===== SKILLSHARE SYSTEM DASHBOARD =====");
-                scanner.close();
+                System.out.println("\n.................SKILLSHARE SYSTEM DASHBOARD ..................");
                 SystemServiceCore.runDashboard();
-                scanner = new Scanner(System.in);
                 System.out.println("\nReturned to main menu.");
 
             } else if (choice == 14) {
-                System.out.println("Exiting System execution context.");
+                System.out.println("Exiting...");
                 break;
             } else {
-                System.out.println("Invalid option index tracking exception.");
+                System.out.println("Err: Invalid option.");
             }
         }
         scanner.close();
