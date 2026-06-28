@@ -10,6 +10,7 @@ Our Skillshare system provides a basic console-based interface, allowing the use
 3. Run command prompt and enter directory
 4. compile main: **javac Main.java**
 5. run main: **java Main.java** (or simply run main)
+_TIP: When running the search option for choice 13, the search is case sensitive and the more the detail, the more accurate the search._
 
 # Contributers
 -Robel
