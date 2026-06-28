@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class SystemServicesMinor {
-    protected static void searchActions (Scanner scannerInput, Profile[] profs) {
+    public static void searchActions (Scanner scannerInput, Profile[] profs) {
         System.out.println("From the search results, please type in the full email you were looking for so we can log for selection.");
         String emailConfirm = scannerInput.nextLine();
         Profile selectedProfile = new TutorProfile("", "", "", 0.0);
