@@ -5,7 +5,6 @@ public class SystemServicesSupport {
         System.out.println("EMAIL SEARCH:");
         String emailString = scannerInput.nextLine();
         emailString = scannerInput.nextLine();
-        System.out.println(emailString);
         System.out.println("looking...");
         for(int i=0; i<profs.length; i++) {
             if(profs[i].getEmail().contains(emailString)) {
