@@ -2,9 +2,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 public class SystemServiceCore {
     //Converted main() to runDashboard() so Main.java calls it as a subsystem
-    public static void runDashboard() {
-        //universal scanner
-        Scanner input = new Scanner(System.in);
+    public static void runDashboard(Scanner scannerInput) {
+        //universal scanner imported from main
 
         //global vars
         String email = "";
@@ -37,7 +36,7 @@ public class SystemServiceCore {
         System.out.println("SkillShare App Dashboard");
         System.out.println("Hello, user. Would you like to create an account or view in-demand skills? (1/2) -> (yes/no)");
         try {
-            startChoice = input.nextInt();
+            startChoice = scannerInput.nextInt();
         } catch(InputMismatchException e) {
             System.out.println("Incorrect data type entered.");
         }
@@ -45,11 +44,11 @@ public class SystemServiceCore {
             case 1:
                 System.out.println("Welcome aboard! Please enter your name and email...");
                 System.out.println("name: ");
-                String name = input.nextLine();
-                name = input.nextLine();
+                String name = scannerInput.nextLine();
+                name = scannerInput.nextLine();
 
                 System.out.println("email: ");
-                String firstEntry = input.nextLine();
+                String firstEntry = scannerInput.nextLine();
                 if(!(firstEntry.contains("@")) || !(firstEntry.contains(".com"))) {
                     System.out.println("Err: Incorrect email format. Please restart app and reenter.");
                 } else {
@@ -61,10 +60,10 @@ public class SystemServiceCore {
                     System.out.println("Email: (logging previously set email)");
                     newUsrProfile.setEmail(email);
                     System.out.println("Enter your bio:");
-                    String bio = input.nextLine();
+                    String bio = scannerInput.nextLine();
                     newUsrProfile.setBio(bio);
                     System.out.println("Enter your experience: ");
-                    String experienceLevel = input.nextLine();
+                    String experienceLevel = scannerInput.nextLine();
                     newUsrProfile.setExperience(experienceLevel);
 
                     System.out.println("Here are your profile/user details to confirm: ");
@@ -88,9 +87,9 @@ public class SystemServiceCore {
                     System.out.println("------------------------------------------------------------");
                     System.out.println("Proceed with Search?");
                     System.out.println("|yes| |no|");
-                    String searchApprove = input.nextLine();
+                    String searchApprove = scannerInput.nextLine();
                     if(searchApprove.equals("yes")) {
-                        SystemServices.searchFacility(newUsrProfile.getEmail(), profileArray);
+                        SystemServices.searchFacility(newUsrProfile.getEmail(), profileArray, scannerInput);
 
                     } else {
                         System.out.println("Going back to feed...");
