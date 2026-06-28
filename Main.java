@@ -6,7 +6,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         requesthandlersys requestSystem = new requesthandlersys();
         reviewservicesys reviewSystem = new reviewservicesys();
-        // Added UserManager for User Management System integration
+        // Added UserManager for User Management System integration with main app
         UserManager userManager = new UserManager();
         file.initDatabase();
 
